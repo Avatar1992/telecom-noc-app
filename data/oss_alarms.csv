@@ -1,0 +1,12 @@
+site_id,site_name,alarm_type,severity,timestamp,description
+101,Site_A,Power_Failure,Critical,2025-08-30 10:15:00,Main power supply down
+102,Site_B,Link_Down,Major,2025-08-30 11:05:00,Backhaul link failure
+103,Site_C,Overheating,Minor,2025-08-30 11:25:00,Temperature crossed threshold
+104,Site_D,Transmission_Error,Major,2025-08-30 11:45:00,High BER detected
+105,Site_E,Battery_Low,Warning,2025-08-30 12:05:00,Battery backup below 40%
+106,Site_F,Link_Down,Critical,2025-08-30 12:15:00,No connectivity for >30 mins
+107,Site_G,Power_Failure,Major,2025-08-30 12:25:00,Grid power outage
+108,Site_H,Overheating,Warning,2025-08-30 12:40:00,Temperature high but stable
+109,Site_I,Hardware_Failure,Critical,2025-08-30 13:00:00,RRU malfunction detected
+110,Site_J,Battery_Low,Minor,2025-08-30 13:20:00,Battery backup under observation
+

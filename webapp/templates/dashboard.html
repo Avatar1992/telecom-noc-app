@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telecom NOC Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+
+  <div class="container py-4">
+    <h1 class="text-center text-primary mb-4">📡 Telecom NOC Dashboard</h1>
+
+    <!-- Table Section -->
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">
+        Active Alarms
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Site ID</th>
+              <th>Site Name</th>
+              <th>Alarm Type</th>
+              <th>Severity</th>
+              <th>Timestamp</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for alarm in alarms %}
+            <tr>
+              <td>{{ alarm.site_id }}</td>
+              <td>{{ alarm.site_name }}</td>
+              <td>{{ alarm.alarm_type }}</td>
+              <td>
+                {% if alarm.severity == "Critical" %}
+                  <span class="badge bg-danger">{{ alarm.severity }}</span>
+                {% elif alarm.severity == "Major" %}
+                  <span class="badge bg-warning text-dark">{{ alarm.severity }}</span>
+                {% elif alarm.severity == "Minor" %}
+                  <span class="badge bg-info text-dark">{{ alarm.severity }}</span>
+                {% else %}
+                  <span class="badge bg-secondary">{{ alarm.severity }}</span>
+                {% endif %}
+              </td>
+              <td>{{ alarm.timestamp }}</td>
+              <td>{{ alarm.description }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white">Alarm Types</div>
+          <div class="card-body">
+            <canvas id="alarmTypeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-danger text-white">Severity Distribution</div>
+          <div class="card-body">
+            <canvas id="severityChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Example Data for Charts
+    const alarmTypeCtx = document.getElementById('alarmTypeChart');
+    new Chart(alarmTypeCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Power Failure', 'Link Down', 'Overheating', 'Battery Low', 'Hardware Failure', 'Transmission Error'],
+        datasets: [{
+          label: 'Count',
+          data: [2, 2, 2, 2, 1, 1],
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      }
+    });
+
+    const severityCtx = document.getElementById('severityChart');
+    new Chart(severityCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Critical', 'Major', 'Minor', 'Warning'],
+        datasets: [{
+          data: [3, 2, 2, 3],
+          backgroundColor: ['#dc3545', '#ffc107', '#0dcaf0', '#6c757d']
+        }]
+      }
+    });
+  </script>
+
+</body>
+</html>
+
